@@ -1,0 +1,6 @@
+#!/bin/sh
+
+JAVABIN=$(which java)
+APPROOT=`dirname $(readlink -f $0)`/..
+
+${JAVABIN} -jar ${APPROOT}/lib/@PROJECT@-@VERSION@-jar-with-dependencies.jar $@
