@@ -7,6 +7,11 @@
     <author email="molnarp@ilab.sztaki.hu">Molnár Péter</author>
   </properties>
   <body>
+    <release version="1.1.0" date="2012-07-05" description="Added RelaxNG validation.">
+      <action dev="molnarp" type="add">
+        Added support for RelaxNG schema files.
+      </action>
+    </release>
     <release version="1.0.0" date="2012-06-07" description="Initial version">
       <action dev="molnarp" type="add">
         Initial implementation added.

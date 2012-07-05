@@ -13,6 +13,6 @@ import java.io.File;
  */
 public interface FileValidator {
 
-    public void validate(File f, File schema);
+    public void validate(File f, File schemaFile);
     public void setVerbose(boolean verbose);
 }

@@ -6,6 +6,7 @@
 package hu.sztaki.ilab.jxmllint;
 
 import java.io.File;
+import javax.xml.XMLConstants;
 import org.apache.commons.cli.*;
 import org.apache.log4j.*;
 
@@ -44,16 +45,22 @@ public class CliRuntime {
             // Assign file
             File f = new File(cli.getOptionValue("file"));
             
-            // Check if schema file was defined.
-            if (! cli.hasOption("s")) {
-                LOG.error("Schema file must be defined.");
-                System.exit(2);   
+            // Assign schema file
+            FileValidator fileValidator = null;
+            File schemaFile = null;
+            if (cli.hasOption("s")) {
+                fileValidator = new JaxpFileValidatorImpl();
+                schemaFile = new File(cli.getOptionValue("schema"));
             }
-            // Assign schema file.
-            File schemaFile = new File(cli.getOptionValue("schema"));
+            else if (cli.hasOption("r")) {
+                fileValidator = new JingFileValidatorImpl();
+                schemaFile = new File(cli.getOptionValue("relaxng"));
+            } else {
+                LOG.error("Schema file must be defined.");
+                System.exit(2);                   
+            }
 
             // Validate against schema
-            FileValidator fileValidator = new XmlSchemaFileValidatorImpl();
 
             // Enable verbose mode
             if (cli.hasOption("v")) {
@@ -76,6 +83,7 @@ public class CliRuntime {
         options.addOption("h", "help", false, "Prints this help screen.");
         options.addOption("v", "verbose", false, "Enables verbose mode.");
         options.addOption("s", "schema", true, "The W3C XML Schema file to validate against.");
+        options.addOption("r", "relaxng", true, "The Relax-NG schema file to validate against.");
         options.addOption("f", "file", true, "The XML document that is validated.");
         
         return options;
