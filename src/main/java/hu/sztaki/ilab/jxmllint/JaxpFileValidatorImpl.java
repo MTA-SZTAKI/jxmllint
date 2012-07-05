@@ -17,16 +17,18 @@ import org.apache.log4j.Logger;
  *
  * @author Molnár Péter <molnarp@ilab.sztaki.hu>
  */
-public class XmlSchemaFileValidatorImpl implements FileValidator {
-    
-    private static final Logger LOG = Logger.getLogger(XmlSchemaFileValidatorImpl.class);
+public class JaxpFileValidatorImpl implements FileValidator {
+    /** Logger. */
+    private static final Logger LOG = Logger.getLogger(JaxpFileValidatorImpl.class);
+    /** Enables verbose operation. */
     private boolean verbose = false;
     
     @Override
     public void validate(File f, File schemaFile) {
         try {
             // Load schema file
-            SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            SchemaFactory schemaFactory = 
+                    SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = schemaFactory.newSchema(schemaFile);
 
             SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
@@ -53,6 +55,4 @@ public class XmlSchemaFileValidatorImpl implements FileValidator {
     public void setVerbose(boolean verbose) {
         this.verbose = verbose;
     }
-    
-    
 }
